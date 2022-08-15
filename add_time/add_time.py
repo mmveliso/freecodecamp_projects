@@ -20,15 +20,16 @@
 
 start_time = "02:00"
 duration = "02:30"
-
+#statement to split the string to lists
 if start_time:
     start_time = start_time.split(":")
 if duration:
     duration = duration.split(":")
-
+#storing total hours
 hours = int(start_time[0]) + int(duration[0])
+#string total minutes
 minutes = int(start_time[1]) + int(duration[1])
-
+#checking all the possible combination conditions
 if hours > 12 and minutes > 60:
     pass
 elif hours > 12 and minutes < 60:
@@ -37,5 +38,7 @@ elif hours < 12 and minutes < 60:
     pass
 elif hours < 12 and minutes > 60:
     pass
+
+
 
 
