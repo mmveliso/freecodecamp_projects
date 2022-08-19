@@ -18,27 +18,24 @@
 #/////////////////////////////////////////////////////////////////////////////////
 #def add_time(start_time, duration, day):
 
-start_time = "02:00"
-duration = "02:30"
-#statement to split the string to lists
-if start_time:
-    start_time = start_time.split(":")
-if duration:
-    duration = duration.split(":")
-#storing total hours
-hours = int(start_time[0]) + int(duration[0])
-#string total minutes
-minutes = int(start_time[1]) + int(duration[1])
-#checking all the possible combination conditions
-if hours > 12 and minutes > 60:
-    pass
-elif hours > 12 and minutes < 60:
-    pass
-elif hours < 12 and minutes < 60:
-    pass
-elif hours < 12 and minutes > 60:
-    pass
+#split the time string i.e "02:30 AM"
+startTime = start_time
+startTime = startTime.split(" ")		#this will split the string where it encounters a white space
+startTimeMeridian = startTime[1]		#assigning the meridian time AMPM
+startTimeFirstElement = startTime[0]		
+startTime = startTimeFirstElement.split(":")
+startTimeHour = startTime[0]
+startTimeMinutes = startTime[1]
 
+#spliting Duration string
+duration = duration
+duration = duration.split(":")
+durationHour = duration[0]
+durationMinites = duration[1]
 
+#converting startTime to minutes
+#converting hours to minutes
+startTimeInMinutes = startTimeMinutes + (startTimeHour * 60)
 
-
+#converting duration to minutes
+durationInMinutes = durationMinutes + (durationHour * 60)
