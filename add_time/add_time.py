@@ -1,4 +1,6 @@
 # Write a function named add_time that takes in two required parameters and one optional parameter:
+from typing import Union, Any
+
 
 # a start time in the 12-hour clock format (ending in AM or PM)
 # a duration time that indicates the number of hours and minutes
@@ -16,26 +18,28 @@
 # Below are some examples of different cases the function should handle. Pay close attention 
 # to the spacing and punctuation of the results.
 #/////////////////////////////////////////////////////////////////////////////////
-#def add_time(start_time, duration, day):
+def add_time(start_time, duration, day):
+
 
 #split the time string i.e "02:30 AM"
-startTime = start_time
-startTime = startTime.split(" ")		#this will split the string where it encounters a white space
-startTimeMeridian = startTime[1]		#assigning the meridian time AMPM
-startTimeFirstElement = startTime[0]		
-startTime = startTimeFirstElement.split(":")
-startTimeHour = startTime[0]
-startTimeMinutes = startTime[1]
+    startTime = start_time
+    startTime = startTime.split(" ")		#this will split the string where it encounters a white space
+    int(startTimeMeridian) = startTime[1]		#assigning the meridian time AMPM
+    startTimeFirstElement = startTime[0]
+    startTime = startTimeFirstElement.split(":")
+    startTimeHour = startTime[0]
+    startTimeMinutes = startTime[1]
 
 #spliting Duration string
-duration = duration
-duration = duration.split(":")
-durationHour = duration[0]
-durationMinites = duration[1]
+    duration = duration
+    duration = duration.split(":")
+    durationHour = duration[0]
+    durationMinutes = duration[1]
 
 #converting startTime to minutes
 #converting hours to minutes
-startTimeInMinutes = startTimeMinutes + (startTimeHour * 60)
+    startTimeInMinutes = startTimeMinutes + (startTimeHour * 60)
 
 #converting duration to minutes
-durationInMinutes = durationMinutes + (durationHour * 60)
+    durationInMinutes = durationMinutes + (durationHour * 60)
+
