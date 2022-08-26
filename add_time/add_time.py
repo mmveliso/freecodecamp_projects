@@ -17,29 +17,45 @@ from typing import Union, Any
 
 # Below are some examples of different cases the function should handle. Pay close attention 
 # to the spacing and punctuation of the results.
-#/////////////////////////////////////////////////////////////////////////////////
-def add_time(start_time, duration, day):
-
-
-#split the time string i.e "02:30 AM"
+# /////////////////////////////////////////////////////////////////////////////////
+def add_time(start_time, duration, day = None):
+    # split the time string i.e "02:30 AM"
     startTime = start_time
-    startTime = startTime.split(" ")		#this will split the string where it encounters a white space
-    int(startTimeMeridian) = startTime[1]		#assigning the meridian time AMPM
+    startTime = startTime.split(" ")  # this will split the string where it encounters a white space
+    startTimeMeridian = startTime[1]  # assigning the meridian time AMPM
     startTimeFirstElement = startTime[0]
     startTime = startTimeFirstElement.split(":")
     startTimeHour = startTime[0]
     startTimeMinutes = startTime[1]
 
-#spliting Duration string
+    # converting start time to 24 hours format
+    if startTimeMeridian == "AM":
+        startTimeHour = startTimeHour + 12
+
+    # splitting Duration string
     duration = duration
     duration = duration.split(":")
     durationHour = duration[0]
     durationMinutes = duration[1]
 
-#converting startTime to minutes
-#converting hours to minutes
+    # converting startTime to minutes
+    # converting hours to minutes
     startTimeInMinutes = startTimeMinutes + (startTimeHour * 60)
 
-#converting duration to minutes
+    # converting duration to minutes
     durationInMinutes = durationMinutes + (durationHour * 60)
 
+    totalMinutes = startTimeInMinutes + durationInMinutes
+
+    # calculating the total hours
+    hours = totalMinutes / 60
+    # calculating the total minutes
+    minutes = totalMinutes % 60
+
+    # calculating days
+    # there are 24 hours per day the total number of hours divided by 24 gives us the total number of days
+    day = hours / 24
+    # the modulus gives us the number of hours left
+    hour = hours % 24
+
+    
