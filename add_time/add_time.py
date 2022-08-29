@@ -18,7 +18,8 @@ from typing import Union, Any
 # Below are some examples of different cases the function should handle. Pay close attention 
 # to the spacing and punctuation of the results.
 # /////////////////////////////////////////////////////////////////////////////////
-def add_time(start_time, duration, day = None):
+def add_time(start_time, duration, day=None):
+    new_time = ""
     # split the time string i.e "02:30 AM"
     startTime = start_time
     startTime = startTime.split(" ")  # this will split the string where it encounters a white space
@@ -29,7 +30,7 @@ def add_time(start_time, duration, day = None):
     startTimeMinutes = startTime[1]
 
     # converting start time to 24 hours format
-    if startTimeMeridian == "AM":
+    if startTimeMeridian == "PM":
         startTimeHour = startTimeHour + 12
 
     # splitting Duration string
@@ -48,14 +49,52 @@ def add_time(start_time, duration, day = None):
     totalMinutes = startTimeInMinutes + durationInMinutes
 
     # calculating the total hours
-    hours = totalMinutes / 60
+    hours = int(totalMinutes) / 60
     # calculating the total minutes
-    minutes = totalMinutes % 60
+    minutes = int(totalMinutes) % 60
+
+    # concatenating zero to the minutes if minutes is less than 10
+    if len(str(minutes)) < 2:
+        new_time = "0" + minutes
+    else:
+        new_time = minutes
 
     # calculating days
     # there are 24 hours per day the total number of hours divided by 24 gives us the total number of days
-    day = hours / 24
+    days = hours / 24
     # the modulus gives us the number of hours left
     hour = hours % 24
 
-    
+    # getting the final time in 12-hour format and meridian
+    finalHours = hour % 12
+
+    if (hour / 12) == 0:
+        finalMeridian = "AM"
+        if finalHours == 0:
+            finalHours = 12
+    else:
+        finalMeridian = "PM"
+        if finalHours == 0:
+            finalHours = 12
+
+    new_time = finalHours + ":" + new_time + " " + finalMeridian
+    if not day is None:
+        day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        pos = 0
+        while True:
+            if day.lower() == day[pos].lower():
+                break
+            pos = pos + 1
+            newDay = day[((pos + (days % 7)) % 7)]
+            new_time = new_time + ", " + newDay
+
+    # output
+    if days == 1:
+        new_time = new_time + "(nest day)"
+    if days > 1:
+        days = str(days)
+        new_time = new_time + " (" + days + " days later)"
+
+    return new_time
+
+print(add_time("02:30 AM", "02:30"))
