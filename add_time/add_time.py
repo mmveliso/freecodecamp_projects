@@ -55,7 +55,7 @@ def add_time(start_time, duration, day=None):
 
     # concatenating zero to the minutes if minutes is less than 10
     if len(str(minutes)) < 2:
-        new_time = "0" + minutes
+        new_time = "0" + str(minutes)
     else:
         new_time = minutes
 
@@ -63,11 +63,12 @@ def add_time(start_time, duration, day=None):
     # there are 24 hours per day the total number of hours divided by 24 gives us the total number of days
     days = hours / 24
     # the modulus gives us the number of hours left
+
     hour = hours % 24
 
     # getting the final time in 12-hour format and meridian
     finalHours = hour % 12
-
+    # if hour is 0 then
     if (hour / 12) == 0:
         finalMeridian = "AM"
         if finalHours == 0:
@@ -77,12 +78,12 @@ def add_time(start_time, duration, day=None):
         if finalHours == 0:
             finalHours = 12
 
-    new_time = finalHours + ":" + new_time + " " + finalMeridian
-    if not day is None:
+    new_time = str(finalHours) + ":" + str(new_time) + " " + finalMeridian
+    if day is not None:
         day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
         pos = 0
         while True:
-            if day.lower() == day[pos].lower():
+            if day == day[pos].lower():
                 break
             pos = pos + 1
             newDay = day[((pos + (days % 7)) % 7)]
@@ -90,11 +91,11 @@ def add_time(start_time, duration, day=None):
 
     # output
     if days == 1:
-        new_time = new_time + "(nest day)"
+        new_time = new_time + "(next day)"
     if days > 1:
         days = str(days)
         new_time = new_time + " (" + days + " days later)"
 
     return new_time
 
-print(add_time("02:30 AM", "02:30"))
+print(add_time("12:30 AM", "20:30", 'Monday'))
