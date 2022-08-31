@@ -63,17 +63,23 @@ def add_time(start_time, duration, day=None):
     # there are 24 hours per day the total number of hours divided by 24 gives us the total number of days
     days = hours / 24
     # the modulus gives us the number of hours left
-
+    # this basically converts the hours to a 24-hour time format
+    # answer will always be less than 24
     hour = hours % 24
 
     # getting the final time in 12-hour format and meridian
+    # this converts the 24-hour time format to a 12-hour format
+    # the answer will never be greater than 12
     finalHours = hour % 12
     # if hour is 0 then
-    if (hour / 12) == 0:
+    # hour will be zero if is less than an hour i.e 00:20 AM, 00:5 = 25min
+    # so hours = 26 / 60 = 0 hours
+    # now hour = 0 % 24 = 0
+    if (hour / 12) == 0:    # look up, will apply if hours line 52 is 0
         finalMeridian = "AM"
         if finalHours == 0:
             finalHours = 12
-    else:
+    else:                   # 
         finalMeridian = "PM"
         if finalHours == 0:
             finalHours = 12
