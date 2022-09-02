@@ -26,8 +26,8 @@ def add_time(start_time, duration, day=None):
     startTimeMeridian = startTime[1]  # assigning the meridian time AMPM
     startTimeFirstElement = startTime[0]
     startTime = startTimeFirstElement.split(":")
-    startTimeHour = startTime[0]
-    startTimeMinutes = startTime[1]
+    startTimeHour = int(startTime[0])
+    startTimeMinutes = int(startTime[1])
 
     # converting start time to 24 hours format
     if startTimeMeridian == "PM":
@@ -36,17 +36,21 @@ def add_time(start_time, duration, day=None):
     # splitting Duration string
     duration = duration
     duration = duration.split(":")
-    durationHour = duration[0]
-    durationMinutes = duration[1]
+    print(duration)
+    durationHour = int(duration[0])
+    durationMinutes = int(duration[1])
 
     # converting startTime to minutes
     # converting hours to minutes
-    startTimeInMinutes = startTimeMinutes + (startTimeHour * 60)
+    startTimeInMinutes = int(startTimeMinutes) + (startTimeHour * 60)
+    print("startTimeinminutes", startTimeInMinutes)
 
     # converting duration to minutes
     durationInMinutes = durationMinutes + (durationHour * 60)
+    print("durationInMinutes", durationInMinutes)
 
-    totalMinutes = startTimeInMinutes + durationInMinutes
+    totalMinutes = int(startTimeInMinutes) + int(durationInMinutes)
+    print(totalMinutes)
 
     # calculating the total hours
     hours = int(totalMinutes) / 60
@@ -70,38 +74,39 @@ def add_time(start_time, duration, day=None):
     # getting the final time in 12-hour format and meridian
     # this converts the 24-hour time format to a 12-hour format
     # the answer will never be greater than 12
-    finalHours = hour % 12
+    finalHours = int(hour % 12)
     # if hour is 0 then
     # hour will be zero if is less than an hour i.e 00:20 AM, 00:5 = 25min
     # so hours = 26 / 60 = 0 hours
     # now hour = 0 % 24 = 0
-    if (hour / 12) == 0:    # look up, will apply if hours line 52 is 0
+    if int(hour / 12) == 0:    # hour is in 24-hour time format so if hour is less than 12 it means the meridian is "AM"
+                               # so when hour is divided by 12 it will return 0 because the numerator (hour) is less than the denominator (12)
         finalMeridian = "AM"
-        if finalHours == 0:
+        if finalHours == 0:    # # this is to distinguish between 12 AM and 12 PM
             finalHours = 12
-    else:                   # 
+    else:                       # if hour is greater than 12 (hour / 12) will return a number greater than 0 meaning it's "PM"
         finalMeridian = "PM"
-        if finalHours == 0:
+        if finalHours == 0:     # this is to distinguish between 12 AM and 12 PM
             finalHours = 12
 
     new_time = str(finalHours) + ":" + str(new_time) + " " + finalMeridian
-    if day is not None:
-        day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        pos = 0
-        while True:
-            if day == day[pos].lower():
-                break
-            pos = pos + 1
-            newDay = day[((pos + (days % 7)) % 7)]
+     if day is not None:
+         day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+         pos = 0
+         while True:
+             if day == day[pos].lower():
+                 break
+             pos = pos + 1
+             newDay = day[((pos + (days % 7)) % 7)]
             new_time = new_time + ", " + newDay
 
-    # output
-    if days == 1:
-        new_time = new_time + "(next day)"
-    if days > 1:
-        days = str(days)
-        new_time = new_time + " (" + days + " days later)"
+     # output
+     if days == 1:
+         new_time = new_time + "(next day)"
+     if days > 1:
+         days = str(days)
+         new_time = new_time + " (" + days + " days later)"
 
-    return new_time
+     return new_time
 
-print(add_time("12:30 AM", "20:30", 'Monday'))
+print(add_time("08:02 PM", "02:01"))
