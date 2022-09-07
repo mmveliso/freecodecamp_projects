@@ -36,21 +36,17 @@ def add_time(start_time, duration, day=None):
     # splitting Duration string
     duration = duration
     duration = duration.split(":")
-    print(duration)
     durationHour = int(duration[0])
     durationMinutes = int(duration[1])
 
     # converting startTime to minutes
     # converting hours to minutes
     startTimeInMinutes = int(startTimeMinutes) + (startTimeHour * 60)
-    print("startTimeinminutes", startTimeInMinutes)
 
     # converting duration to minutes
     durationInMinutes = durationMinutes + (durationHour * 60)
-    print("durationInMinutes", durationInMinutes)
 
     totalMinutes = int(startTimeInMinutes) + int(durationInMinutes)
-    print(totalMinutes)
 
     # calculating the total hours
     hours = int(totalMinutes) / 60
@@ -65,7 +61,7 @@ def add_time(start_time, duration, day=None):
 
     # calculating days
     # there are 24 hours per day the total number of hours divided by 24 gives us the total number of days
-    days = hours / 24
+    days = int(hours / 24)
     # the modulus gives us the number of hours left
     # this basically converts the hours to a 24-hour time format
     # answer will always be less than 24
@@ -90,23 +86,27 @@ def add_time(start_time, duration, day=None):
             finalHours = 12
 
     new_time = str(finalHours) + ":" + str(new_time) + " " + finalMeridian
-     if day is not None:
-         day = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-         pos = 0
-         while True:
-             if day == day[pos].lower():
-                 break
-             pos = pos + 1
-             newDay = day[((pos + (days % 7)) % 7)]
-            new_time = new_time + ", " + newDay
+    if day is not None:
+        dayz = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+        # initializing pos variable
+        pos = 0
+        while True:
+            # will break when given day matches any element in the dayz list
+            if day.lower() == dayz[pos].lower():
+                break
+            # pos will increment until the if statement executes
+            pos = pos + 1
+        # ?????
+        newDay = dayz[((pos + (days % 7)) % 7)]
+        new_time = new_time + ", " + newDay
 
-     # output
-     if days == 1:
-         new_time = new_time + "(next day)"
-     if days > 1:
-         days = str(days)
-         new_time = new_time + " (" + days + " days later)"
+    # output
+    if days == 1:
+        new_time = new_time + "(next day)"
+    if days > 1:
+        days = str(days)
+        new_time = new_time + " (" + days + " days later)"
 
-     return new_time
+    return new_time
 
-print(add_time("08:02 PM", "02:01"))
+print(add_time("11:02 PM", "30:01", "Monday"))
